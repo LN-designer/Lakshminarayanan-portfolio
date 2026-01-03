@@ -36,7 +36,7 @@
             --space-sm: 16px;
             --space-md: 32px;
             --space-lg: 64px;
-            --space-xl: clamp(100px, 15vh, 200px); 
+            --space-xl: clamp(80px, 12vh, 160px); 
             
             /* Responsive Container Padding (Mobile Safe) */
             --container-padding: max(5vw, 24px);
@@ -63,6 +63,12 @@
         /* --- RESET & BASE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden; /* CRITICAL FIX for layout spill */
+        }
+        
         html { scroll-behavior: smooth; }
         
         body {
@@ -73,7 +79,6 @@
             background-attachment: fixed;
             color: var(--text-main);
             font-family: var(--font-body); 
-            overflow-x: hidden;
             line-height: 1.7;
             transition: background-color 0.5s var(--easing), color 0.5s var(--easing);
         }
@@ -153,11 +158,6 @@
             transition: 0.3s; position: relative;
         }
         .nav-links a:hover { color: var(--accent-secondary); }
-        .ai-badge {
-            font-size: 0.6rem; background: var(--accent-primary); color: white;
-            padding: 2px 6px; border-radius: 4px; position: absolute; top: -12px; right: -15px;
-            font-family: var(--font-body); font-weight: 700; box-shadow: 0 0 10px var(--accent-primary);
-        }
         .theme-toggle {
             background: transparent; border: 1px solid var(--border);
             color: var(--text-main); width: 40px; height: 40px; border-radius: 50%;
@@ -232,6 +232,7 @@
         .marquee-section { 
             padding: 60px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); 
             background: var(--surface); margin-top: var(--space-xl); 
+            width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); /* Full Bleed */
         }
         .marquee-track { display: flex; overflow: hidden; gap: 80px; opacity: 0.8; }
         .marquee-content {
@@ -240,6 +241,7 @@
         }
         .marquee-logo {
             height: 50px; width: auto; opacity: 0.5; transition: 0.3s; filter: grayscale(100%);
+            max-width: 200px; object-fit: contain; /* Prevent large image blowouts */
         }
         .marquee-logo:hover { opacity: 1; filter: grayscale(0%); transform: scale(1.05); }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
@@ -262,37 +264,6 @@
         .behance-portal:hover .behance-title {
             background: var(--gradient-text); -webkit-background-clip: text; color: transparent;
         }
-
-        /* AI LAB */
-        .ai-lab {
-            background: linear-gradient(135deg, var(--surface) 0%, rgba(0, 240, 255, 0.05) 100%);
-            border: 1px solid var(--border); border-radius: 24px; 
-            padding: clamp(30px, 5vw, 60px); /* Responsive Padding */
-            position: relative; overflow: hidden; box-shadow: 0 0 50px rgba(0,0,0,0.05);
-            display: flex; flex-direction: column; gap: 30px; text-align: center; align-items: center;
-        }
-        .ai-lab::before {
-            content: "POWERED BY GEMINI"; position: absolute; top: 30px; right: 30px;
-            font-size: 0.7rem; color: var(--accent-secondary); border: 1px solid var(--accent-secondary); 
-            padding: 6px 12px; border-radius: 100px; font-weight: 700; letter-spacing: 1px; font-family: var(--font-body);
-        }
-        
-        .services-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; justify-content: center; }
-        .service-tag {
-            background: transparent; border: 1px solid var(--border); color: var(--text-muted);
-            padding: 12px 24px; border-radius: 50px; cursor: pointer; transition: 0.3s;
-            font-weight: 500; font-size: 1rem;
-        }
-        .service-tag:hover, .service-tag.active {
-            background: var(--accent-secondary); color: var(--bg); border-color: var(--accent-secondary); font-weight: 700;
-        }
-
-        .ai-result { 
-            margin-top: 20px; color: var(--text-main); line-height: 1.8; text-align: left;
-            white-space: pre-line; display: none; padding: 40px; background: rgba(0,0,0,0.2);
-            border-left: 4px solid var(--accent-primary); border-radius: 0 16px 16px 0; font-size: 1.1rem; width: 100%; max-width: 800px;
-        }
-        .ai-result.visible { display: block; animation: fadeIn 0.5s ease; }
 
         /* CONTACT SECTION & FORM */
         .contact-container {
@@ -384,9 +355,6 @@
             <div class="nav-links">
                 <a href="#about" class="hover-trigger">Bio & Exp</a>
                 <a href="#work" class="hover-trigger">Works</a>
-                <a href="#lab" class="hover-trigger" style="color: var(--accent-secondary); font-weight: 700; font-family: var(--font-body);">
-                    AI Lab <span class="ai-badge">NEW</span>
-                </a>
                 <a href="#contact" class="hover-trigger">Contact</a>
             </div>
             <button id="theme-btn" class="theme-toggle hover-trigger">
@@ -565,34 +533,6 @@
         </a>
     </section>
 
-    <!-- AI Lab (Scope Estimator) -->
-    <section id="lab" class="section-padding container">
-        <h2 class="uppercase reveal-y" style="font-size: 1rem; color: var(--accent-primary); margin-bottom: var(--space-md); text-align: center;">
-            The AI Laboratory <span style="font-size: 0.7rem; background: var(--accent-primary); padding: 4px 10px; border-radius: 50px; color: white; margin-left: 10px; vertical-align: middle;">BETA</span>
-        </h2>
-        
-        <div class="ai-lab reveal-y">
-            <h3 style="font-size: 3rem; line-height: 1;">Project Scope Estimator</h3>
-            <p style="margin-top: 10px; font-size: 1.2rem; max-width: 800px;">
-                Select a service to get an instant breakdown of deliverables, estimated timeline, and a strategic value overview before you hire.
-            </p>
-            
-            <!-- Selection Tags -->
-            <div class="services-grid">
-                <button class="service-tag hover-trigger" onclick="fillPrompt('Carousel Design', this)">Carousel Design</button>
-                <button class="service-tag hover-trigger" onclick="fillPrompt('Reel Edit (High Retention)', this)">Reel Edit</button>
-                <button class="service-tag hover-trigger" onclick="fillPrompt('Longform Video Edit', this)">Longform Video</button>
-                <button class="service-tag hover-trigger" onclick="fillPrompt('Social Media Post Design', this)">Social Media Post</button>
-                <button class="service-tag hover-trigger" onclick="fillPrompt('Motion Graphics Logo', this)">Motion Graphics</button>
-            </div>
-            
-            <div id="ai-output" class="ai-result"></div>
-            <div id="loader" style="display: none; color: var(--accent-secondary); margin-top: 20px;">
-                <i class="fa-solid fa-circle-notch fa-spin"></i> Generating Scope...
-            </div>
-        </div>
-    </section>
-
     <!-- Contact & Form -->
     <section id="contact" class="section-padding container">
         <div class="contact-container reveal-y">
@@ -622,8 +562,6 @@
     </section>
 
     <script>
-        const apiKey = ""; // Runtime Environment will provide this
-
         // 1. INTRO ANIMATION
         const textToType = "Hi, I'm Lakshmi Narayanan S. Happy to connect.";
         const typeWriterElement = document.getElementById('typewriter');
@@ -657,57 +595,7 @@
             themeBtn.innerHTML = newTheme === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
         });
 
-        // 3. AI SCOPE GENERATOR (Gemini)
-        async function fillPrompt(service, btnElement) {
-            const output = document.getElementById('ai-output');
-            const loader = document.getElementById('loader');
-            
-            // Visual Feedback for Buttons
-            document.querySelectorAll('.service-tag').forEach(btn => btn.classList.remove('active'));
-            if(btnElement) btnElement.classList.add('active');
-
-            output.classList.remove('visible');
-            loader.style.display = 'block';
-
-            const prompt = `Act as a senior creative producer. The client is interested in: "${service}".
-            Generate a concise "Scope of Work" summary.
-            Format exactly like this:
-            **Typical Deliverables:**
-            - [Item 1]
-            - [Item 2]
-            
-            **Estimated Timeline:** [e.g. 2-3 Days]
-            *(Note: Timelines are customizable. Rush delivery options available with adjusted pricing.)*
-            
-            **Why Hire a Pro:** [1 sentence punchy value proposition about why this specific service drives results]
-            
-            Do not include specific dollar amounts. Keep it professional and persuasive.`;
-
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-                });
-                
-                const data = await response.json();
-                const text = data.candidates[0].content.parts[0].text;
-                
-                // Format Bold text for HTML
-                const formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                
-                output.innerHTML = formattedText;
-                output.classList.add('visible');
-            } catch(e) {
-                console.error(e);
-                output.innerText = "Connection error. Please try again.";
-                output.classList.add('visible');
-            } finally {
-                loader.style.display = 'none';
-            }
-        }
-
-        // 4. HANDLE CONTACT FORM
+        // 3. HANDLE CONTACT FORM
         function handleFormSubmit(e) {
             e.preventDefault();
             const name = document.getElementById('form-name').value;
@@ -720,7 +608,7 @@
             window.location.href = `mailto:sureshrhodes123@gmail.com?subject=${subject}&body=${body}`;
         }
 
-        // 5. CANVAS BACKGROUND
+        // 4. CANVAS BACKGROUND
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let width, height;
@@ -762,7 +650,7 @@
         }
         animate();
 
-        // 6. CUSTOM CURSOR
+        // 5. CUSTOM CURSOR
         const cursorDot = document.querySelector("[data-cursor-dot]");
         const cursorOutline = document.querySelector("[data-cursor-outline]");
         
@@ -779,7 +667,7 @@
             trigger.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
         });
 
-        // 7. SCROLL REVEAL
+        // 6. SCROLL REVEAL
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if(entry.isIntersecting) entry.target.classList.add('active');
