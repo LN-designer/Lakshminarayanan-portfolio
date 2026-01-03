@@ -1,1 +1,779 @@
-# Lakshminarayanan-portfolio
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lakshmi Narayanan S | Creative Technologist</title>
+    <meta name="description" content="Portfolio of Lakshmi Narayanan S - Video Editor, Designer, Motion Graphics Artist & Generative AI Specialist working with clients worldwide.">
+    
+    <!-- Fonts: Anton (Display), Space Grotesk (Tech/Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CORE VARIABLES --- */
+        :root {
+            /* Default Dark Mode */
+            --bg: #050509; 
+            --surface: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-main: #ffffff;
+            --text-muted: #a0a0c0;
+            --card-bg: rgba(255,255,255,0.02);
+            
+            /* Accents */
+            --accent-primary: #FF0055; /* Electric Pink */
+            --accent-secondary: #00F0FF; /* Cyan */
+            
+            --gradient-text: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
+            
+            /* Spacing System */
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 32px;
+            --space-lg: 64px;
+            --space-xl: clamp(100px, 15vh, 200px); 
+            --container-padding: 5vw;
+            
+            /* Typography Rules (Strict 2-Font System) */
+            --font-display: 'Anton', sans-serif; /* Headings Only */
+            --font-body: 'Space Grotesk', sans-serif; /* Body/Desc Only */
+            
+            --easing: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Light Mode Variables */
+        [data-theme="light"] {
+            --bg: #f4f4f5;
+            --surface: rgba(0, 0, 0, 0.03);
+            --border: rgba(0, 0, 0, 0.08);
+            --text-main: #1a1a2e;
+            --text-muted: #555566;
+            --card-bg: rgba(255,255,255,0.6);
+            --accent-primary: #D60045; 
+            --accent-secondary: #00A3AD; 
+        }
+
+        /* --- RESET & BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 80% 10%, rgba(255,0,85,0.03) 0px, transparent 40%),
+                radial-gradient(at 10% 40%, rgba(0,240,255,0.03) 0px, transparent 40%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            font-family: var(--font-body); /* Body Font */
+            overflow-x: hidden;
+            line-height: 1.7;
+            transition: background-color 0.5s var(--easing), color 0.5s var(--easing);
+        }
+
+        /* TYPOGRAPHY UTILS */
+        h1, h2, h3, .brand-name, .logo, .intro-text { 
+            font-family: var(--font-display); /* Bold Heading Font */
+            font-weight: 400; /* Anton is inherently bold */
+            letter-spacing: 1px; /* Slight spacing for premium feel */
+            color: var(--text-main); 
+        }
+        
+        p, a, button, input, textarea, .role-date, .service-tag, .ai-result {
+            font-family: var(--font-body); /* Description/UI Font */
+        }
+
+        p { max-width: 65ch; } /* Optimal Line Length for Readability */
+
+        .uppercase { text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; font-weight: 600; }
+        .highlight-text { 
+            background: var(--gradient-text); 
+            -webkit-background-clip: text; color: transparent; 
+        }
+
+        /* PRELOADER */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg); z-index: 99999;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .intro-text { font-size: clamp(1.5rem, 4vw, 3rem); letter-spacing: 2px; }
+        .cursor-blink { animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* VISUAL FX */
+        .noise {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noise)" opacity="0.05"/%3E%3C/svg%3E');
+            pointer-events: none; z-index: 9000;
+        }
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; pointer-events: none; }
+
+        /* CUSTOM CURSOR */
+        .cursor-dot {
+            position: fixed; top: 0; left: 0; width: 8px; height: 8px;
+            background: var(--accent-secondary); border-radius: 50%; z-index: 9999;
+            pointer-events: none; transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px var(--accent-secondary);
+        }
+        .cursor-outline {
+            position: fixed; top: 0; left: 0; width: 40px; height: 40px;
+            border: 1px solid rgba(128,128,128,0.3); border-radius: 50%;
+            z-index: 9999; pointer-events: none; transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
+        }
+        body.hovering .cursor-outline {
+            width: 80px; height: 80px; background: rgba(0, 240, 255, 0.05);
+            border-color: var(--accent-primary); backdrop-filter: blur(2px);
+        }
+
+        /* NAVIGATION */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            padding: 24px var(--container-padding); 
+            display: flex; justify-content: space-between; align-items: center;
+            backdrop-filter: blur(12px); background: rgba(var(--bg), 0.7);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: padding 0.3s;
+        }
+        .logo { font-size: 1.5rem; letter-spacing: 1px; text-decoration: none; }
+        .nav-right { display: flex; align-items: center; gap: 40px; }
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a { 
+            color: var(--text-muted); text-decoration: none; 
+            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;
+            transition: 0.3s; position: relative;
+        }
+        .nav-links a:hover { color: var(--accent-secondary); }
+        .ai-badge {
+            font-size: 0.6rem; background: var(--accent-primary); color: white;
+            padding: 2px 6px; border-radius: 4px; position: absolute; top: -12px; right: -15px;
+            font-family: var(--font-body); font-weight: 700; box-shadow: 0 0 10px var(--accent-primary);
+        }
+        .theme-toggle {
+            background: transparent; border: 1px solid var(--border);
+            color: var(--text-main); width: 40px; height: 40px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; cursor: none;
+            transition: 0.3s;
+        }
+        .theme-toggle:hover { border-color: var(--accent-secondary); color: var(--accent-secondary); }
+
+        /* HERO */
+        .hero {
+            min-height: 90vh; display: flex; flex-direction: column; justify-content: center;
+            position: relative; padding-top: 140px; 
+        }
+        .status-badge {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 10px 20px; border: 1px solid var(--border); border-radius: 100px;
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; font-family: var(--font-body);
+            margin-bottom: var(--space-md); width: fit-content; color: var(--accent-secondary);
+            background: rgba(0, 240, 255, 0.05);
+        }
+        .status-dot { width: 6px; height: 6px; background: var(--accent-secondary); border-radius: 50%; box-shadow: 0 0 10px var(--accent-secondary); }
+        
+        .hero-title {
+            font-size: clamp(4rem, 12vw, 13rem);
+            margin-left: -0.04em; margin-bottom: var(--space-md);
+            line-height: 0.9; letter-spacing: 2px; text-transform: uppercase;
+        }
+        
+        .hero-footer {
+            display: flex; justify-content: space-between; align-items: flex-end;
+            margin-top: var(--space-lg); flex-wrap: wrap; gap: 40px;
+        }
+        .hero-desc { max-width: 550px; font-size: 1.25rem; line-height: 1.6; }
+        .hero-desc strong { color: var(--text-main); font-weight: 500; }
+
+        .cta-button {
+            display: flex; align-items: center; gap: 24px; color: var(--text-main); text-decoration: none;
+            group: transition; font-family: var(--font-body); font-weight: 600;
+        }
+        .cta-circle {
+            width: 80px; height: 80px; border: 1px solid var(--border); border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            transition: 0.4s var(--easing); background: var(--surface);
+        }
+        .cta-button:hover .cta-circle { 
+            background: var(--accent-primary); border-color: var(--accent-primary); 
+            transform: scale(1.1); color: white;
+        }
+
+        /* EXPERIENCE GRID */
+        .exp-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--space-md); }
+        .exp-card {
+            background: var(--card-bg); border: 1px solid var(--border);
+            padding: 40px; border-radius: 24px; transition: 0.4s;
+            display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
+        }
+        .exp-card:hover { border-color: var(--accent-secondary); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        
+        .span-12 { grid-column: span 12; }
+        .span-6 { grid-column: span 6; }
+        .span-4 { grid-column: span 4; }
+
+        .role-title { font-size: 2rem; margin-bottom: 4px; line-height: 1.1; letter-spacing: 1px; }
+        .company-name { 
+            font-family: var(--font-display); color: var(--accent-secondary); 
+            font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 400;
+        }
+        .role-date { display: block; margin-top: 4px; font-size: 0.9rem; color: var(--text-muted); }
+
+        /* MARQUEE (18 LOGOS) */
+        .marquee-section { 
+            padding: 60px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); 
+            background: var(--surface); margin-top: var(--space-xl); 
+        }
+        .marquee-track { display: flex; overflow: hidden; gap: 80px; opacity: 0.8; }
+        .marquee-content {
+            display: flex; gap: 80px; animation: marquee 60s linear infinite; /* Slower for more logos */
+            align-items: center; 
+        }
+        .marquee-logo {
+            height: 50px; width: auto; opacity: 0.5; transition: 0.3s; filter: grayscale(100%);
+        }
+        .marquee-logo:hover { opacity: 1; filter: grayscale(0%); transform: scale(1.05); }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+        /* BEHANCE PORTAL */
+        .behance-portal {
+            display: block; width: 100%; min-height: 500px;
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(0,0,0,0.1) 100%);
+            border: 1px solid var(--border); border-radius: 24px;
+            position: relative; overflow: hidden; text-decoration: none;
+            transition: all 0.5s var(--easing); display: flex; align-items: center; justify-content: center;
+        }
+        .behance-portal:hover {
+            border-color: var(--accent-secondary); box-shadow: 0 0 60px rgba(0, 240, 255, 0.15); transform: scale(0.99);
+        }
+        .behance-title {
+            font-size: clamp(3rem, 10vw, 7rem); line-height: 0.9; margin-bottom: 30px;
+            transition: 0.3s; letter-spacing: 2px;
+        }
+        .behance-portal:hover .behance-title {
+            background: var(--gradient-text); -webkit-background-clip: text; color: transparent;
+        }
+
+        /* AI LAB (Project Estimator) */
+        .ai-lab {
+            background: linear-gradient(135deg, var(--surface) 0%, rgba(0, 240, 255, 0.05) 100%);
+            border: 1px solid var(--border); border-radius: 24px; padding: 60px;
+            position: relative; overflow: hidden; box-shadow: 0 0 50px rgba(0,0,0,0.05);
+            display: flex; flex-direction: column; gap: 30px; text-align: center; align-items: center;
+        }
+        .ai-lab::before {
+            content: "POWERED BY GEMINI"; position: absolute; top: 30px; right: 30px;
+            font-size: 0.7rem; color: var(--accent-secondary); border: 1px solid var(--accent-secondary); 
+            padding: 6px 12px; border-radius: 100px; font-weight: 700; letter-spacing: 1px; font-family: var(--font-body);
+        }
+        
+        .services-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; justify-content: center; }
+        .service-tag {
+            background: transparent; border: 1px solid var(--border); color: var(--text-muted);
+            padding: 10px 24px; border-radius: 50px; cursor: pointer; transition: 0.3s;
+            font-weight: 500; font-size: 1rem;
+        }
+        .service-tag:hover, .service-tag.active {
+            background: var(--accent-secondary); color: var(--bg); border-color: var(--accent-secondary); font-weight: 700;
+        }
+
+        .ai-result { 
+            margin-top: 20px; color: var(--text-main); line-height: 1.8; text-align: left;
+            white-space: pre-line; display: none; padding: 40px; background: rgba(0,0,0,0.2);
+            border-left: 4px solid var(--accent-primary); border-radius: 0 16px 16px 0; font-size: 1.1rem; width: 100%; max-width: 800px;
+        }
+        .ai-result.visible { display: block; animation: fadeIn 0.5s ease; }
+
+        /* CONTACT SECTION & FORM */
+        .contact-container {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
+        }
+        .contact-info p { font-size: 1.2rem; margin-top: 20px; color: var(--text-muted); }
+        .footer-cta { 
+            font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; color: var(--text-main); 
+            text-decoration: none; transition: 0.3s; display: block; margin-top: 20px;
+            font-family: var(--font-display); letter-spacing: 1px;
+        }
+        .footer-cta:hover { color: var(--accent-secondary); }
+
+        .contact-form {
+            background: var(--card-bg); padding: 40px; border-radius: 24px; border: 1px solid var(--border);
+            display: flex; flex-direction: column; gap: 20px;
+        }
+        .form-input {
+            width: 100%; background: rgba(0,0,0,0.2); border: 1px solid var(--border);
+            padding: 16px 20px; border-radius: 12px; color: var(--text-main);
+            font-size: 1rem; transition: 0.3s;
+        }
+        .form-input:focus { outline: none; border-color: var(--accent-primary); background: rgba(0,0,0,0.4); }
+        .submit-btn {
+            background: var(--text-main); color: var(--bg); border: none; padding: 16px;
+            border-radius: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            cursor: none; transition: 0.3s; margin-top: 10px;
+        }
+        .submit-btn:hover { background: var(--accent-secondary); transform: translateY(-3px); }
+
+        /* FLOATING TRACKER */
+        .floating-tracker {
+            position: fixed; bottom: 40px; right: 40px; z-index: 90;
+            background: var(--accent-primary); color: white;
+            padding: 16px 32px; border-radius: 100px; text-decoration: none;
+            font-family: var(--font-display); font-weight: 400; letter-spacing: 1px;
+            box-shadow: 0 10px 40px rgba(255, 0, 85, 0.4);
+            transition: 0.3s; display: flex; align-items: center; gap: 12px;
+            border: 2px solid rgba(255,255,255,0.2); backdrop-filter: blur(5px);
+        }
+        .floating-tracker:hover { 
+            transform: translateY(-5px) scale(1.05); 
+            background: var(--text-main); color: var(--bg); border-color: var(--accent-primary); 
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .span-6, .span-4 { grid-column: span 12; }
+            .hero-title { font-size: 4.5rem; }
+            .nav-links { display: none; }
+            .behance-title { font-size: 3.5rem; }
+            .contact-container { grid-template-columns: 1fr; }
+            .container { padding: 0 6vw; }
+        }
+        
+        .reveal-y { opacity: 0; transform: translateY(60px); transition: 1s var(--easing); }
+        .reveal-y.active { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+    
+    <!-- INTRO ANIMATION -->
+    <div id="preloader">
+        <div class="intro-text">
+            <span id="typewriter"></span><span class="cursor-blink">|</span>
+        </div>
+    </div>
+
+    <div class="noise"></div>
+    <canvas id="bg-canvas"></canvas>
+    
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
+
+    <!-- Floating "Tracker" CTA -->
+    <a href="mailto:sureshrhodes123@gmail.com?subject=Portfolio Visit: [Name]&body=Hi Lakshmi,%0D%0A%0D%0AI just visited your portfolio and I'm interested in connecting regarding..." class="floating-tracker hover-trigger">
+        <i class="fa-regular fa-paper-plane"></i> Say Hi!
+    </a>
+
+    <!-- Nav -->
+    <nav>
+        <a href="#" class="logo hover-trigger">LAKSHMI NARAYANAN S</a>
+        <div class="nav-right">
+            <div class="nav-links">
+                <a href="#about" class="hover-trigger">Bio & Exp</a>
+                <a href="#work" class="hover-trigger">Works</a>
+                <a href="#lab" class="hover-trigger" style="color: var(--accent-secondary); font-weight: 700; font-family: var(--font-body);">
+                    AI Lab <span class="ai-badge">NEW</span>
+                </a>
+                <a href="#contact" class="hover-trigger">Contact</a>
+            </div>
+            <button id="theme-btn" class="theme-toggle hover-trigger">
+                <i class="fa-solid fa-sun"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero container">
+        <div class="status-badge reveal-y">
+            <div class="status-dot"></div>
+            Video Editor | Designer | Motion Graphics | Generative AI Specialist
+        </div>
+        
+        <h1 class="hero-title reveal-y" style="transition-delay: 0.1s;">
+            VISUAL <br> 
+            <span class="highlight-text">ALCHEMY.</span>
+        </h1>
+        
+        <div class="hero-footer reveal-y" style="transition-delay: 0.2s;">
+            <p class="hero-desc">
+                <strong>Lakshmi Narayanan S.</strong> <br>
+                Video Editor, Designer, and Generative AI Specialist.<br>
+                A versatile professional incorporating new technologies to elevate business content for clients worldwide.
+            </p>
+            
+            <a href="#work" class="cta-button hover-trigger">
+                <div class="cta-circle">
+                    <i class="fa-solid fa-arrow-down"></i>
+                </div>
+                <span class="uppercase" style="font-weight: 700; letter-spacing: 1px;">View Projects</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- About & Experience -->
+    <section id="about" class="experience-section container section-padding">
+        <h2 class="uppercase reveal-y" style="font-size: 1rem; color: var(--accent-primary); margin-bottom: var(--space-md);">Experience Log</h2>
+        
+        <div class="exp-grid">
+            <!-- Bio Summary -->
+            <div class="exp-card span-12 reveal-y">
+                <h3 style="font-size: 2.5rem; margin-bottom: 10px;">About Me</h3>
+                <p style="font-size: 1.25rem; line-height: 1.6; max-width: 900px;">
+                    I am passionate about staying up-to-date with the latest trends in incorporating new techniques and technologies into my work. With a strong portfolio of work and a commitment to delivering exceptional results, I am confident in my ability to provide value to any organization looking to elevate their content.
+                </p>
+            </div>
+
+            <!-- Role 1 -->
+            <div class="exp-card span-6 reveal-y">
+                <div>
+                    <span class="company-name">Verbly Integrated Communications</span>
+                    <h3 class="role-title">Design Executive</h3>
+                    <span class="role-date">Aug 2024 — Present</span>
+                </div>
+                <p>
+                    Designing pitch decks, LinkedIn Thought Leadership posts, and National Day Creatives. Elevating business branding through versatile design capabilities.
+                </p>
+            </div>
+
+            <!-- Role 2 -->
+            <div class="exp-card span-6 reveal-y">
+                <div>
+                    <span class="company-name">Freelance</span>
+                    <h3 class="role-title">Video & Motion Designer</h3>
+                    <span class="role-date">Apr 2024 — Aug 2024</span>
+                </div>
+                <p>
+                    Clients: Shree Mithal, Dumont, 50 Bay. Created content calendars and produced high-retention reels to engage target audiences with current trends.
+                </p>
+            </div>
+
+            <!-- Role 3 -->
+            <div class="exp-card span-4 reveal-y">
+                <div>
+                    <span class="company-name">Antano & Harini</span>
+                    <h3 class="role-title">Video Editor</h3>
+                    <span class="role-date">Aug 2023 — Apr 2024</span>
+                </div>
+                <p style="font-size: 0.95rem;">
+                    Scripting, shooting, and 4K editing. Focused on executing visuals to increase sales and business expansion.
+                </p>
+            </div>
+
+            <!-- Role 4 -->
+            <div class="exp-card span-4 reveal-y">
+                <div>
+                    <span class="company-name">Digitally Inspired Media</span>
+                    <h3 class="role-title">Video Editor</h3>
+                    <span class="role-date">June 2022 — Aug 2023</span>
+                </div>
+                <p style="font-size: 0.95rem;">
+                    Works: Disney+ Hotstar, Vijay TV, Zee5. Created digital content for fiction/non-fiction series & motion graphics.
+                </p>
+            </div>
+
+            <!-- Role 5 -->
+            <div class="exp-card span-4 reveal-y">
+                <div>
+                    <span class="company-name">VikkiMedia</span>
+                    <h3 class="role-title">Editor & Designer</h3>
+                    <span class="role-date">Sep 2021 — June 2022</span>
+                </div>
+                <p style="font-size: 0.95rem;">
+                    Online event editing (10+ events), pitch presentations, and candid videography.
+                </p>
+            </div>
+            
+            <!-- Education -->
+             <div class="exp-card span-12 reveal-y" style="flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+                <div>
+                    <span class="company-name" style="color: var(--text-main);">Education</span>
+                    <h3 class="role-title" style="margin-bottom:0;">B.Sc Visual Communication</h3>
+                    <p style="color: var(--accent-secondary); margin-top: 5px;">SRM Institute of Science & Technology (2019-2022)</p>
+                </div>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <span style="padding: 6px 18px; border: 1px solid var(--border); border-radius: 50px; font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">Premiere Pro</span>
+                    <span style="padding: 6px 18px; border: 1px solid var(--border); border-radius: 50px; font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">After Effects</span>
+                    <span style="padding: 6px 18px; border: 1px solid var(--border); border-radius: 50px; font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">Photoshop</span>
+                    <span style="padding: 6px 18px; border: 1px solid var(--border); border-radius: 50px; font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">Illustrator</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee with 18 Logo Slots -->
+    <div class="marquee-section">
+        <div class="marquee-track">
+            <div class="marquee-content">
+                <!-- 18 Slots Ready for Logos -->
+                <img src="https://placehold.co/200x80/333/FFF?text=Disney%2B" alt="Disney Plus" class="marquee-logo">
+                <img src="https://placehold.co/200x80/333/FFF?text=VijayTV" alt="Vijay TV" class="marquee-logo">
+                <img src="https://placehold.co/200x80/333/FFF?text=Zee5" alt="Zee5" class="marquee-logo">
+                <img src="https://placehold.co/200x80/333/FFF?text=Verbly" alt="Verbly" class="marquee-logo">
+                <img src="https://placehold.co/200x80/333/FFF?text=Dumont" alt="Dumont" class="marquee-logo">
+                <img src="https://placehold.co/200x80/333/FFF?text=Sangeetha" alt="Sangeetha" class="marquee-logo">
+                <img src="https://placehold.co/200x80/333/FFF?text=ShreeMithal" alt="Shree Mithal" class="marquee-logo">
+                <img src="https://placehold.co/200x80/333/FFF?text=50Bay" alt="50 Bay" class="marquee-logo">
+                <img src="https://placehold.co/200x80/333/FFF?text=Antano" alt="Antano & Harini" class="marquee-logo">
+                <img src="https://placehold.co/200x80/333/FFF?text=VikkiMedia" alt="VikkiMedia" class="marquee-logo">
+                <img src="https://placehold.co/200x80/333/FFF?text=DigitallyInspired" alt="Digitally Inspired" class="marquee-logo">
+                <img src="https://placehold.co/200x80/333/FFF?text=SRM" alt="SRM" class="marquee-logo">
+                <img src="https://placehold.co/200x80/333/FFF?text=SonyMusic" alt="Sony Music" class="marquee-logo">
+                <img src="https://placehold.co/200x80/333/FFF?text=Ogilvy" alt="Ogilvy" class="marquee-logo">
+                <img src="https://placehold.co/200x80/333/FFF?text=TedX" alt="TedX" class="marquee-logo">
+                <img src="https://placehold.co/200x80/333/FFF?text=Wired" alt="Wired" class="marquee-logo">
+                <img src="https://placehold.co/200x80/333/FFF?text=Adobe" alt="Adobe" class="marquee-logo">
+                <img src="https://placehold.co/200x80/333/FFF?text=Client18" alt="Client 18" class="marquee-logo">
+                
+                <!-- Duplicate Set for Seamless Loop -->
+                <img src="https://placehold.co/200x80/333/FFF?text=Disney%2B" alt="Disney Plus" class="marquee-logo">
+                <img src="https://placehold.co/200x80/333/FFF?text=VijayTV" alt="Vijay TV" class="marquee-logo">
+                <img src="https://placehold.co/200x80/333/FFF?text=Zee5" alt="Zee5" class="marquee-logo">
+                <img src="https://placehold.co/200x80/333/FFF?text=Verbly" alt="Verbly" class="marquee-logo">
+                <img src="https://placehold.co/200x80/333/FFF?text=Dumont" alt="Dumont" class="marquee-logo">
+            </div>
+        </div>
+    </div>
+
+    <!-- Selected Works -->
+    <section id="work" class="section-padding container">
+        <h2 class="uppercase reveal-y" style="font-size: 1rem; color: var(--accent-primary); margin-bottom: var(--space-md);">Selected Works</h2>
+        <h3 class="reveal-y" style="font-size: 3rem; margin-bottom: 40px; max-width: 600px; line-height: 1;">A curation of visual narratives and brand identities.</h3>
+        
+        <a href="https://www.behance.net" target="_blank" class="behance-portal hover-trigger reveal-y">
+            <div class="behance-bg-glow"></div>
+            <div class="behance-content">
+                <h3 class="behance-title">VIEW COMPLETE <br> ARCHIVE</h3>
+                <div class="behance-sub" style="text-align: center; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-top: 10px;">
+                    <span>On Behance</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.9rem; margin-left: 8px;"></i>
+                </div>
+            </div>
+        </a>
+    </section>
+
+    <!-- AI Lab (Scope Estimator) -->
+    <section id="lab" class="section-padding container">
+        <h2 class="uppercase reveal-y" style="font-size: 1rem; color: var(--accent-primary); margin-bottom: var(--space-md); text-align: center;">
+            The AI Laboratory <span style="font-size: 0.7rem; background: var(--accent-primary); padding: 4px 10px; border-radius: 50px; color: white; margin-left: 10px; vertical-align: middle;">BETA</span>
+        </h2>
+        
+        <div class="ai-lab reveal-y">
+            <h3 style="font-size: 3rem; line-height: 1;">Project Scope Estimator</h3>
+            <p style="margin-top: 10px; font-size: 1.2rem; max-width: 800px;">
+                Select a service to get an instant breakdown of deliverables, estimated timeline, and a strategic value overview before you hire.
+            </p>
+            
+            <!-- Selection Tags -->
+            <div class="services-grid">
+                <button class="service-tag hover-trigger" onclick="fillPrompt('Carousel Design')">Carousel Design</button>
+                <button class="service-tag hover-trigger" onclick="fillPrompt('Reel Edit (High Retention)')">Reel Edit</button>
+                <button class="service-tag hover-trigger" onclick="fillPrompt('Longform Video Edit')">Longform Video</button>
+                <button class="service-tag hover-trigger" onclick="fillPrompt('Social Media Post Design')">Social Media Post</button>
+                <button class="service-tag hover-trigger" onclick="fillPrompt('Motion Graphics Logo')">Motion Graphics</button>
+            </div>
+            
+            <div id="ai-output" class="ai-result"></div>
+            <div id="loader" style="display: none; color: var(--accent-secondary); margin-top: 20px;">
+                <i class="fa-solid fa-circle-notch fa-spin"></i> Generating Scope...
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Form -->
+    <section id="contact" class="section-padding container">
+        <div class="contact-container reveal-y">
+            <div class="contact-info">
+                <p class="uppercase" style="color: var(--accent-primary); margin-bottom: 20px;">Contact Me</p>
+                <h3 style="font-size: 3rem; line-height: 1;">Let's create something <br>mindblowing.</h3>
+                <a href="mailto:sureshrhodes123@gmail.com" class="footer-cta hover-trigger">
+                    sureshrhodes123@<br>gmail.com
+                </a>
+                <p style="margin-top: 40px; font-size: 1.2rem;">+91 8825818955 | Available Worldwide</p>
+                <div style="display: flex; gap: 30px; margin-top: 40px;">
+                    <a href="https://www.linkedin.com" target="_blank" style="color: var(--text-main); text-decoration: none; transition: 0.3s; font-weight: 600; text-transform: uppercase; font-size: 0.85rem;" class="hover-trigger">LinkedIn</a>
+                    <a href="https://www.behance.net" target="_blank" style="color: var(--text-main); text-decoration: none; transition: 0.3s; font-weight: 600; text-transform: uppercase; font-size: 0.85rem;" class="hover-trigger">Behance</a>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <form id="contact-form" class="contact-form" onsubmit="handleFormSubmit(event)">
+                <h4 style="font-size: 1.5rem; margin-bottom: 10px;">Send a Message</h4>
+                <input type="text" id="form-name" placeholder="Name" required class="form-input hover-trigger">
+                <input type="email" id="form-email" placeholder="Email" required class="form-input hover-trigger">
+                <textarea id="form-msg" placeholder="Tell me about your project..." rows="5" class="form-input hover-trigger" required></textarea>
+                <button type="submit" class="submit-btn hover-trigger">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        const apiKey = ""; // Runtime Environment will provide this
+
+        // 1. INTRO ANIMATION
+        const textToType = "Hi, I'm Lakshmi Narayanan S. Happy to connect.";
+        const typeWriterElement = document.getElementById('typewriter');
+        const preloader = document.getElementById('preloader');
+        let i = 0;
+
+        function typeWriter() {
+            if (i < textToType.length) {
+                typeWriterElement.innerHTML += textToType.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            } else {
+                setTimeout(() => {
+                    preloader.style.opacity = '0';
+                    preloader.style.visibility = 'hidden';
+                }, 1000);
+            }
+        }
+        window.addEventListener('load', () => {
+            setTimeout(typeWriter, 500);
+        });
+
+        // 2. THEME TOGGLE
+        const themeBtn = document.getElementById('theme-btn');
+        const html = document.documentElement;
+        
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            themeBtn.innerHTML = newTheme === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+        });
+
+        // 3. AI SCOPE GENERATOR (Gemini)
+        async function fillPrompt(service) {
+            const output = document.getElementById('ai-output');
+            const loader = document.getElementById('loader');
+            
+            // Visual Feedback for Buttons
+            document.querySelectorAll('.service-tag').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            output.classList.remove('visible');
+            loader.style.display = 'block';
+
+            const prompt = `Act as a senior creative producer. The client is interested in: "${service}".
+            Generate a concise "Scope of Work" summary.
+            Format exactly like this:
+            **Typical Deliverables:**
+            - [Item 1]
+            - [Item 2]
+            
+            **Estimated Timeline:** [e.g. 2-3 Days]
+            
+            **Why Hire a Pro:** [1 sentence punchy value proposition about why this specific service drives results]
+            
+            Do not include prices. Keep it professional and persuasive.`;
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                });
+                
+                const data = await response.json();
+                const text = data.candidates[0].content.parts[0].text;
+                
+                // Format Bold text for HTML
+                const formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                
+                output.innerHTML = formattedText;
+                output.classList.add('visible');
+            } catch(e) {
+                console.error(e);
+                output.innerText = "Connection error. Please try again.";
+                output.classList.add('visible');
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+
+        // 4. HANDLE CONTACT FORM
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('form-name').value;
+            const email = document.getElementById('form-email').value;
+            const msg = document.getElementById('form-msg').value;
+            
+            const subject = `Portfolio Inquiry from ${name}`;
+            const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0AMessage:%0D%0A${msg}`;
+            
+            window.location.href = `mailto:sureshrhodes123@gmail.com?subject=${subject}&body=${body}`;
+        }
+
+        // 5. CANVAS BACKGROUND
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        const colors = ['#FF0055', '#00F0FF', '#FFD600', '#FFFFFF'];
+        const particles = [];
+        for(let i=0; i<40; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                size: Math.random() * 3,
+                color: colors[Math.floor(Math.random() * colors.length)]
+            });
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            particles.forEach(p => {
+                p.x += p.vx; p.y += p.vy;
+                if(p.x < 0 || p.x > width) p.vx *= -1;
+                if(p.y < 0 || p.y > height) p.vy *= -1;
+                
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+                ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // 6. CUSTOM CURSOR
+        const cursorDot = document.querySelector("[data-cursor-dot]");
+        const cursorOutline = document.querySelector("[data-cursor-outline]");
+        
+        window.addEventListener("mousemove", (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+            cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
+        });
+        
+        document.querySelectorAll('.hover-trigger').forEach(trigger => {
+            trigger.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+            trigger.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+        });
+
+        // 7. SCROLL REVEAL
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal-y').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
