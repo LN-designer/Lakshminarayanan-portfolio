@@ -6,10 +6,10 @@
     <title>Lakshmi Narayanan S | Creative Technologist</title>
     <meta name="description" content="Portfolio of Lakshmi Narayanan S - Video Editor, Designer, Motion Graphics Artist & Generative AI Specialist working with clients worldwide.">
     
-    <!-- Fonts: Anton (Display), Space Grotesk (Tech/Body) -->
+    <!-- Fonts: Anton (Display), Space Grotesk (Body), Inter (UI/Headings) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -31,19 +31,20 @@
             
             --gradient-text: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
             
-            /* Spacing System */
+            /* Spacing System - Tightened */
             --space-xs: 8px;
             --space-sm: 16px;
-            --space-md: 32px;
-            --space-lg: 64px;
+            --space-md: 24px; 
+            --space-lg: 48px; 
             --space-xl: clamp(80px, 12vh, 160px); 
             
-            /* Responsive Container Padding (Mobile Safe) */
-            --container-padding: max(5vw, 24px);
+            /* Responsive Container Padding - Optimized for Mobile */
+            --container-padding: max(3vw, 16px);
             
             /* Typography Rules */
             --font-display: 'Anton', sans-serif; 
             --font-body: 'Space Grotesk', sans-serif; 
+            --font-ui: 'Inter', sans-serif;
             
             --easing: cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -66,7 +67,7 @@
         html, body {
             width: 100%;
             max-width: 100%;
-            overflow-x: hidden; /* CRITICAL FIX for layout spill */
+            overflow-x: hidden;
         }
         
         html { scroll-behavior: smooth; }
@@ -79,7 +80,7 @@
             background-attachment: fixed;
             color: var(--text-main);
             font-family: var(--font-body); 
-            line-height: 1.7;
+            line-height: 1.6;
             transition: background-color 0.5s var(--easing), color 0.5s var(--easing);
         }
 
@@ -91,13 +92,26 @@
             color: var(--text-main); 
         }
         
-        p, a, button, input, textarea, .role-date, .service-tag, .ai-result {
+        p, a, button, input, textarea, .role-date, .chat-message {
             font-family: var(--font-body); 
         }
 
-        p { max-width: 65ch; } 
+        p { max-width: 70ch; } 
 
-        .uppercase { text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; font-weight: 600; }
+        /* UPDATED SECTION HEADINGS: Inter Font + White */
+        .section-heading {
+            font-family: var(--font-ui);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            margin-bottom: var(--space-md);
+            display: inline-block;
+            border-bottom: 2px solid var(--accent-secondary);
+            padding-bottom: 4px;
+        }
+
         .highlight-text { 
             background: var(--gradient-text); 
             -webkit-background-clip: text; color: transparent; 
@@ -143,21 +157,22 @@
         /* NAVIGATION */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 100;
-            padding: 24px var(--container-padding); 
+            padding: 20px var(--container-padding); 
             display: flex; justify-content: space-between; align-items: center;
             backdrop-filter: blur(12px); background: rgba(var(--bg), 0.85);
             border-bottom: 1px solid rgba(255,255,255,0.05);
             transition: padding 0.3s;
         }
         .logo { font-size: 1.5rem; letter-spacing: 1px; text-decoration: none; }
-        .nav-right { display: flex; align-items: center; gap: 40px; }
-        .nav-links { display: flex; gap: 40px; }
+        .nav-right { display: flex; align-items: center; gap: 30px; }
+        .nav-links { display: flex; gap: 30px; }
         .nav-links a { 
             color: var(--text-muted); text-decoration: none; 
             font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;
-            transition: 0.3s; position: relative;
+            transition: 0.3s; position: relative; font-family: var(--font-ui);
         }
         .nav-links a:hover { color: var(--accent-secondary); }
+        
         .theme-toggle {
             background: transparent; border: 1px solid var(--border);
             color: var(--text-main); width: 40px; height: 40px; border-radius: 50%;
@@ -169,36 +184,36 @@
         /* HERO */
         .hero {
             min-height: 90vh; display: flex; flex-direction: column; justify-content: center;
-            position: relative; padding-top: 140px; 
+            position: relative; padding-top: 120px; 
         }
         .status-badge {
             display: inline-flex; align-items: center; gap: 10px;
-            padding: 10px 20px; border: 1px solid var(--border); border-radius: 100px;
-            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; font-family: var(--font-body);
+            padding: 8px 16px; border: 1px solid var(--border); border-radius: 100px;
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; font-family: var(--font-ui);
             margin-bottom: var(--space-md); width: fit-content; color: var(--accent-secondary);
             background: rgba(0, 240, 255, 0.05);
         }
         .status-dot { width: 6px; height: 6px; background: var(--accent-secondary); border-radius: 50%; box-shadow: 0 0 10px var(--accent-secondary); }
         
         .hero-title {
-            font-size: clamp(4rem, 12vw, 13rem);
+            font-size: clamp(3.5rem, 12vw, 13rem);
             margin-left: -0.04em; margin-bottom: var(--space-md);
             line-height: 0.9; letter-spacing: 2px; text-transform: uppercase;
         }
         
         .hero-footer {
             display: flex; justify-content: space-between; align-items: flex-end;
-            margin-top: var(--space-lg); flex-wrap: wrap; gap: 40px;
+            margin-top: var(--space-lg); flex-wrap: wrap; gap: 30px;
         }
-        .hero-desc { max-width: 550px; font-size: 1.25rem; line-height: 1.6; }
-        .hero-desc strong { color: var(--text-main); font-weight: 500; }
+        .hero-desc { max-width: 550px; font-size: 1.25rem; line-height: 1.5; }
+        .hero-desc strong { color: var(--text-main); font-weight: 600; }
 
         .cta-button {
-            display: flex; align-items: center; gap: 24px; color: var(--text-main); text-decoration: none;
-            group: transition; font-family: var(--font-body); font-weight: 600;
+            display: flex; align-items: center; gap: 20px; color: var(--text-main); text-decoration: none;
+            group: transition; font-family: var(--font-ui); font-weight: 600; text-transform: uppercase; font-size: 0.9rem;
         }
         .cta-circle {
-            width: 80px; height: 80px; border: 1px solid var(--border); border-radius: 50%; 
+            width: 60px; height: 60px; border: 1px solid var(--border); border-radius: 50%; 
             display: flex; align-items: center; justify-content: center;
             transition: 0.4s var(--easing); background: var(--surface);
         }
@@ -211,9 +226,9 @@
         .exp-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--space-md); }
         .exp-card {
             background: var(--card-bg); border: 1px solid var(--border);
-            padding: clamp(30px, 5vw, 50px); /* Responsive Padding inside cards */
-            border-radius: 24px; transition: 0.4s;
-            display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
+            padding: 32px; 
+            border-radius: 20px; transition: 0.4s;
+            display: flex; flex-direction: column; justify-content: space-between; gap: 20px;
         }
         .exp-card:hover { border-color: var(--accent-secondary); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         
@@ -221,34 +236,34 @@
         .span-6 { grid-column: span 6; }
         .span-4 { grid-column: span 4; }
 
-        .role-title { font-size: 2rem; margin-bottom: 4px; line-height: 1.1; letter-spacing: 1px; }
+        .role-title { font-size: 1.8rem; margin-bottom: 4px; line-height: 1.1; letter-spacing: 1px; }
         .company-name { 
             font-family: var(--font-display); color: var(--accent-secondary); 
-            font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 400;
+            font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 400;
         }
-        .role-date { display: block; margin-top: 4px; font-size: 0.9rem; color: var(--text-muted); }
+        .role-date { display: block; margin-top: 4px; font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-ui); }
 
-        /* MARQUEE (18 LOGOS) */
+        /* MARQUEE */
         .marquee-section { 
             padding: 60px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); 
             background: var(--surface); margin-top: var(--space-xl); 
-            width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); /* Full Bleed */
+            width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);
         }
-        .marquee-track { display: flex; overflow: hidden; gap: 80px; opacity: 0.8; }
+        .marquee-track { display: flex; overflow: hidden; gap: 60px; opacity: 0.8; }
         .marquee-content {
-            display: flex; gap: 80px; animation: marquee 60s linear infinite;
+            display: flex; gap: 60px; animation: marquee 60s linear infinite;
             align-items: center; 
         }
         .marquee-logo {
-            height: 50px; width: auto; opacity: 0.5; transition: 0.3s; filter: grayscale(100%);
-            max-width: 200px; object-fit: contain; /* Prevent large image blowouts */
+            height: 40px; width: auto; opacity: 0.5; transition: 0.3s; filter: grayscale(100%);
+            max-width: 180px; object-fit: contain;
         }
         .marquee-logo:hover { opacity: 1; filter: grayscale(0%); transform: scale(1.05); }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
         /* BEHANCE PORTAL */
         .behance-portal {
-            display: block; width: 100%; min-height: 500px;
+            display: block; width: 100%; min-height: 450px;
             background: linear-gradient(135deg, var(--card-bg) 0%, rgba(0,0,0,0.1) 100%);
             border: 1px solid var(--border); border-radius: 24px;
             position: relative; overflow: hidden; text-decoration: none;
@@ -258,58 +273,83 @@
             border-color: var(--accent-secondary); box-shadow: 0 0 60px rgba(0, 240, 255, 0.15); transform: scale(0.99);
         }
         .behance-title {
-            font-size: clamp(3rem, 10vw, 7rem); line-height: 0.9; margin-bottom: 30px;
+            font-size: clamp(3rem, 10vw, 6rem); line-height: 0.9; margin-bottom: 20px;
             transition: 0.3s; letter-spacing: 2px;
         }
         .behance-portal:hover .behance-title {
             background: var(--gradient-text); -webkit-background-clip: text; color: transparent;
         }
 
-        /* CONTACT SECTION & FORM */
+        /* CONTACT FORM */
         .contact-container {
-            display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 5vw, 80px); align-items: start;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
         }
-        .contact-info p { font-size: 1.2rem; margin-top: 20px; color: var(--text-muted); }
         .footer-cta { 
-            font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; color: var(--text-main); 
+            font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; color: var(--text-main); 
             text-decoration: none; transition: 0.3s; display: block; margin-top: 20px;
             font-family: var(--font-display); letter-spacing: 1px;
         }
         .footer-cta:hover { color: var(--accent-secondary); }
 
         .contact-form {
-            background: var(--card-bg); padding: clamp(30px, 5vw, 50px); 
+            background: var(--card-bg); padding: 40px; 
             border-radius: 24px; border: 1px solid var(--border);
-            display: flex; flex-direction: column; gap: 24px;
+            display: flex; flex-direction: column; gap: 20px;
         }
         .form-input {
             width: 100%; background: rgba(0,0,0,0.2); border: 1px solid var(--border);
-            padding: 20px 24px; /* Increased internal padding */
-            border-radius: 12px; color: var(--text-main);
-            font-size: 1rem; transition: 0.3s;
+            padding: 16px 20px; border-radius: 12px; color: var(--text-main);
+            font-size: 1rem; transition: 0.3s; font-family: var(--font-body);
         }
         .form-input:focus { outline: none; border-color: var(--accent-primary); background: rgba(0,0,0,0.4); }
         .submit-btn {
-            background: var(--text-main); color: var(--bg); border: none; padding: 20px;
+            background: var(--text-main); color: var(--bg); border: none; padding: 16px;
             border-radius: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
-            cursor: none; transition: 0.3s; margin-top: 10px; font-size: 1rem;
+            cursor: none; transition: 0.3s; margin-top: 10px; font-size: 0.9rem; font-family: var(--font-ui);
         }
         .submit-btn:hover { background: var(--accent-secondary); transform: translateY(-3px); }
 
-        /* FLOATING TRACKER */
-        .floating-tracker {
-            position: fixed; bottom: 40px; right: 40px; z-index: 90;
-            background: var(--accent-primary); color: white;
-            padding: 16px 32px; border-radius: 100px; text-decoration: none;
-            font-family: var(--font-display); font-weight: 400; letter-spacing: 1px;
-            box-shadow: 0 10px 40px rgba(255, 0, 85, 0.4);
-            transition: 0.3s; display: flex; align-items: center; gap: 12px;
-            border: 2px solid rgba(255,255,255,0.2); backdrop-filter: blur(5px);
+        /* AI CHATBOT (Say Hi) */
+        .chat-widget {
+            position: fixed; bottom: 30px; right: 30px; z-index: 999;
+            font-family: var(--font-body);
         }
-        .floating-tracker:hover { 
-            transform: translateY(-5px) scale(1.05); 
-            background: var(--text-main); color: var(--bg); border-color: var(--accent-primary); 
+        .chat-toggle {
+            background: var(--accent-primary); color: white; width: 60px; height: 60px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 30px rgba(255,0,85,0.4); cursor: pointer; transition: 0.3s;
+            border: 2px solid white;
         }
+        .chat-toggle:hover { transform: scale(1.1); background: var(--text-main); color: var(--bg); border-color: var(--accent-primary); }
+        
+        .chat-window {
+            position: absolute; bottom: 80px; right: 0; width: 320px;
+            background: #111; border: 1px solid var(--border); border-radius: 20px;
+            padding: 0; display: none; flex-direction: column; overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: slideUp 0.3s ease;
+        }
+        .chat-window.active { display: flex; }
+        .chat-header {
+            background: var(--accent-primary); color: white; padding: 15px; font-family: var(--font-ui); font-weight: 700; font-size: 0.9rem;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .chat-messages { padding: 20px; height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .chat-msg {
+            padding: 10px 15px; border-radius: 12px; font-size: 0.9rem; max-width: 85%;
+        }
+        .bot-msg { background: rgba(255,255,255,0.1); align-self: flex-start; border-bottom-left-radius: 2px; }
+        .user-msg { background: var(--accent-secondary); color: #000; align-self: flex-end; border-bottom-right-radius: 2px; }
+        
+        .chat-input-area {
+            padding: 10px; border-top: 1px solid var(--border); display: flex; gap: 10px; background: #000;
+        }
+        .chat-input {
+            flex: 1; background: transparent; border: none; color: white; outline: none; font-size: 0.9rem;
+        }
+        .chat-send { color: var(--accent-primary); background: transparent; border: none; cursor: pointer; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         /* RESPONSIVE */
         @media (max-width: 1024px) {
@@ -317,11 +357,12 @@
             .hero-title { font-size: 4.5rem; margin-bottom: 24px; }
             .nav-links { display: none; }
             .behance-title { font-size: 3.5rem; }
-            .contact-container { grid-template-columns: 1fr; }
+            .contact-container { grid-template-columns: 1fr; gap: 40px; }
             
-            /* Remove extra side padding on mobile since container handles it */
+            /* Mobile Spacing Optimizations */
             .section-padding { padding: 80px 0; }
-            .floating-tracker { bottom: 20px; right: 20px; padding: 12px 24px; font-size: 0.9rem; }
+            .exp-card, .contact-form { padding: 24px; }
+            .chat-widget { bottom: 20px; right: 20px; }
         }
         
         .reveal-y { opacity: 0; transform: translateY(60px); transition: 1s var(--easing); }
@@ -343,10 +384,25 @@
     <div class="cursor-dot" data-cursor-dot></div>
     <div class="cursor-outline" data-cursor-outline></div>
 
-    <!-- Floating "Tracker" CTA -->
-    <a href="mailto:sureshrhodes123@gmail.com?subject=Portfolio Visit: [Name]&body=Hi Lakshmi,%0D%0A%0D%0AI just visited your portfolio and I'm interested in connecting regarding..." class="floating-tracker hover-trigger">
-        <i class="fa-regular fa-paper-plane"></i> Say Hi!
-    </a>
+    <!-- AI Chatbot (Say Hi) -->
+    <div class="chat-widget">
+        <div class="chat-toggle" onclick="toggleChat()">
+            <i class="fa-solid fa-comment-dots" style="font-size: 1.5rem;"></i>
+        </div>
+        <div class="chat-window" id="chat-window">
+            <div class="chat-header">
+                <div style="width: 8px; height: 8px; background: #0f0; border-radius: 50%;"></div>
+                Lakshmi's AI Assistant
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="chat-msg bot-msg">Hi there! 👋 Thanks for visiting. What's your name?</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" class="chat-input" placeholder="Type here..." onkeypress="handleChatKey(event)">
+                <button class="chat-send" onclick="sendChat()"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
 
     <!-- Nav -->
     <nav>
@@ -393,7 +449,7 @@
 
     <!-- About & Experience -->
     <section id="about" class="experience-section container section-padding">
-        <h2 class="uppercase reveal-y" style="font-size: 1rem; color: var(--accent-primary); margin-bottom: var(--space-md);">Experience Log</h2>
+        <h2 class="section-heading reveal-y">Experience Log</h2>
         
         <div class="exp-grid">
             <!-- Bio Summary -->
@@ -517,7 +573,7 @@
 
     <!-- Selected Works -->
     <section id="work" class="section-padding container">
-        <h2 class="uppercase reveal-y" style="font-size: 1rem; color: var(--accent-primary); margin-bottom: var(--space-md);">Selected Works</h2>
+        <h2 class="section-heading reveal-y">Selected Works</h2>
         <h3 class="reveal-y" style="font-size: 3rem; margin-bottom: 40px; max-width: 600px; line-height: 1;">A curation of visual narratives and brand identities.</h3>
         
         <!-- REPLACE THE HREF BELOW WITH YOUR ACTUAL BEHANCE PROFILE URL -->
@@ -537,7 +593,7 @@
     <section id="contact" class="section-padding container">
         <div class="contact-container reveal-y">
             <div class="contact-info">
-                <p class="uppercase" style="color: var(--accent-primary); margin-bottom: 20px;">Contact Me</p>
+                <h2 class="section-heading">Contact Me</h2>
                 <h3 style="font-size: 3rem; line-height: 1;">Let's create something <br>mindblowing.</h3>
                 <a href="mailto:sureshrhodes123@gmail.com" class="footer-cta hover-trigger">
                     sureshrhodes123@<br>gmail.com
@@ -545,14 +601,14 @@
                 <p style="margin-top: 40px; font-size: 1.2rem;">+91 8825818955 | Available Worldwide</p>
                 <div style="display: flex; gap: 30px; margin-top: 40px;">
                     <!-- REPLACE THE HREFS BELOW WITH YOUR ACTUAL SOCIAL LINKS -->
-                    <a href="https://www.linkedin.com/in/your-profile-id" target="_blank" style="color: var(--text-main); text-decoration: none; transition: 0.3s; font-weight: 600; text-transform: uppercase; font-size: 0.85rem;" class="hover-trigger">LinkedIn</a>
-                    <a href="https://www.behance.net/your-profile-id" target="_blank" style="color: var(--text-main); text-decoration: none; transition: 0.3s; font-weight: 600; text-transform: uppercase; font-size: 0.85rem;" class="hover-trigger">Behance</a>
+                    <a href="https://www.linkedin.com/in/your-profile-id" target="_blank" style="color: var(--text-main); text-decoration: none; transition: 0.3s; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; font-family: var(--font-ui);" class="hover-trigger">LinkedIn</a>
+                    <a href="https://www.behance.net/your-profile-id" target="_blank" style="color: var(--text-main); text-decoration: none; transition: 0.3s; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; font-family: var(--font-ui);" class="hover-trigger">Behance</a>
                 </div>
             </div>
 
             <!-- Contact Form -->
             <form id="contact-form" class="contact-form" onsubmit="handleFormSubmit(event)">
-                <h4 style="font-size: 1.5rem; margin-bottom: 10px;">Send a Message</h4>
+                <h4 style="font-size: 1.5rem; margin-bottom: 10px; font-family: var(--font-display);">Send a Message</h4>
                 <input type="text" id="form-name" placeholder="Name" required class="form-input hover-trigger">
                 <input type="email" id="form-email" placeholder="Email" required class="form-input hover-trigger">
                 <textarea id="form-msg" placeholder="Tell me about your project..." rows="5" class="form-input hover-trigger" required></textarea>
@@ -608,7 +664,67 @@
             window.location.href = `mailto:sureshrhodes123@gmail.com?subject=${subject}&body=${body}`;
         }
 
-        // 4. CANVAS BACKGROUND
+        // 4. CHATBOT LOGIC (Say Hi)
+        let chatState = 0;
+        let userData = { name: '', email: '' };
+
+        function toggleChat() {
+            const chatWindow = document.getElementById('chat-window');
+            chatWindow.classList.toggle('active');
+        }
+
+        function handleChatKey(e) {
+            if(e.key === 'Enter') sendChat();
+        }
+
+        function sendChat() {
+            const input = document.getElementById('chat-input');
+            const messages = document.getElementById('chat-messages');
+            const userText = input.value.trim();
+            
+            if (!userText) return;
+
+            // User Message
+            const userMsgDiv = document.createElement('div');
+            userMsgDiv.className = 'chat-msg user-msg';
+            userMsgDiv.innerText = userText;
+            messages.appendChild(userMsgDiv);
+            input.value = '';
+            messages.scrollTop = messages.scrollHeight;
+
+            // Bot Response
+            setTimeout(() => {
+                const botMsgDiv = document.createElement('div');
+                botMsgDiv.className = 'chat-msg bot-msg';
+                
+                if (chatState === 0) {
+                    userData.name = userText;
+                    botMsgDiv.innerText = `Nice to meet you, ${userData.name}! What's your email address so Lakshmi can reach out?`;
+                    chatState = 1;
+                } else if (chatState === 1) {
+                    userData.email = userText;
+                    botMsgDiv.innerText = "Got it. How can Lakshmi help you today? (e.g. Video Editing, Design, AI)";
+                    chatState = 2;
+                } else if (chatState === 2) {
+                    botMsgDiv.innerHTML = "Perfect. I've drafted an email for you. <br> <a href='#' onclick='triggerMail()' style='color: var(--accent-secondary); text-decoration: underline;'>Click here to send</a>";
+                    userData.msg = userText;
+                    chatState = 3;
+                } else {
+                    botMsgDiv.innerText = "Email drafted! Anything else?";
+                }
+                
+                messages.appendChild(botMsgDiv);
+                messages.scrollTop = messages.scrollHeight;
+            }, 800);
+        }
+
+        function triggerMail() {
+            const subject = `Portfolio Lead: ${userData.name}`;
+            const body = `Name: ${userData.name}%0D%0AEmail: ${userData.email}%0D%0A%0D%0ARequest:%0D%0A${userData.msg}`;
+            window.location.href = `mailto:sureshrhodes123@gmail.com?subject=${subject}&body=${body}`;
+        }
+
+        // 5. CANVAS BACKGROUND
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let width, height;
@@ -650,7 +766,7 @@
         }
         animate();
 
-        // 5. CUSTOM CURSOR
+        // 6. CUSTOM CURSOR
         const cursorDot = document.querySelector("[data-cursor-dot]");
         const cursorOutline = document.querySelector("[data-cursor-outline]");
         
@@ -667,7 +783,7 @@
             trigger.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
         });
 
-        // 6. SCROLL REVEAL
+        // 7. SCROLL REVEAL
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if(entry.isIntersecting) entry.target.classList.add('active');
